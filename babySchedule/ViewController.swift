@@ -14,7 +14,7 @@ let selected: String = " selected"
 let action: [String] = ["eat", "poo", "sleep"]
 let unit: [String] = [" ML"," Time(s)"," Hour(s)"]
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -25,12 +25,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             ListItem(amount: 3, type: action[2], date: NSDate()),
             ListItem(amount: 400, type: action[0], date: NSDate())]
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
             var item : ListItem
@@ -64,13 +64,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if editingStyle == UITableViewCellEditingStyle.Delete{
             list.removeAtIndex(indexPath.row)
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-//            self.tableView.reloadData()
         }
         
     }
     @IBAction func close(segue: UIStoryboardSegue){
         print("closed")
+        saveDatatoFile()
         tableView.reloadData()
+    }
+    
+    func getFilePath(type: String) -> NSURL?{
+        let fileManager = NSFileManager.defaultManager()
+        do{
+            let folderPath = try fileManager.URLForDirectory(.DocumentDirectory, inDomain:.UserDomainMask, appropriateForURL: nil, create: true).URLByAppendingPathComponent(type)
+            if !fileManager.fileExistsAtPath(folderPath.path!){
+                do{
+                    try fileManager.createDirectoryAtURL(folderPath, withIntermediateDirectories: true, attributes: nil)
+                    return folderPath
+                }
+                catch let err as NSError{
+                    print(err.localizedDescription)
+                }
+            }
+        }
+        catch let err as NSError{
+            print(err.localizedDescription)
+        }
+
+        return nil
+        
+    }
+    
+    func saveDatatoFile(){
+        if let testPath = getFilePath(action[0])
+        {
+            let filePath = testPath.URLByAppendingPathComponent("test.txt")
+            print(filePath.path)
+            let info  = "this is test text"
+            do{
+                try info.writeToURL(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+            }
+            catch let err as NSError{
+                print(err.localizedDescription)
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,6 +117,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if let index = indexPath{
                 vc.item = list[index.row]
             }
+        }
+        else if segue.identifier == "AddItem"{
+            
         }
     }
 }

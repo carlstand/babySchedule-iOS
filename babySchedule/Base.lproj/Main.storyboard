@@ -78,7 +78,13 @@
                             <constraint firstItem="qKA-2J-wnK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wyQ-gS-KWc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="宝宝日志" id="QTI-Xp-fmI"/>
+                    <navigationItem key="navigationItem" title="宝宝日志" id="QTI-Xp-fmI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fe5-6d-8EY">
+                            <connections>
+                                <segue destination="HPu-F2-pMU" kind="push" identifier="AddItem" id="nad-cJ-ccO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="qKA-2J-wnK" id="Qv1-Aa-7mi"/>
                     </connections>
@@ -218,4 +224,7 @@
         <image name="sleep" width="50" height="50"/>
         <image name="sleep selected" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nad-cJ-ccO"/>
+    </inferredMetricsTieBreakers>
 </document>
