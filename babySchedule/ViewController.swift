@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let date = cell.viewWithTag(3) as! UILabel
             
             let dateFormatter = NSDateFormatter()
-            let dateFormat = NSDateFormatter.dateFormatFromTemplate("HH:mm:ss YYYY-MM-dd", options: 0, locale: NSLocale.currentLocale())
+            let dateFormat = NSDateFormatter.dateFormatFromTemplate("HH:mm YYYY-MM-dd", options: 0, locale: NSLocale.currentLocale())
             dateFormatter.dateFormat = dateFormat
             let dateOfDate = dateFormatter.stringFromDate(item.date)
             if let index = action.indexOf(item.type){
