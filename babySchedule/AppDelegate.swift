@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Bmob.registerWithAppKey("xxxxxx")
+        Bmob.registerWithAppKey("ea8e54d68847be535d94f192802461c4")
         return true
     }
 
