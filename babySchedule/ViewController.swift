@@ -24,6 +24,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             ListItem(amount: 1, type: action[1], date: NSDate()),
             ListItem(amount: 3, type: action[2], date: NSDate()),
             ListItem(amount: 400, type: action[0], date: NSDate())]
+        
+        let obj:BmobObject = BmobObject(className: "GameScore")
+        obj.setObject(3, forKey: "class")
+        obj.saveInBackground()
     }
     
     override func didReceiveMemoryWarning() {
