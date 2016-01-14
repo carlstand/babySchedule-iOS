@@ -25,11 +25,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             ListItem(amount: 3, type: action[2], date: NSDate()),
             ListItem(amount: 400, type: action[0], date: NSDate())]
         
-        let obj:BmobObject = BmobObject(className: "GameScore")
-        obj.setObject(3, forKey: "class")
-        obj.saveInBackground()
+        for item in list{
+            saveItem(item)
+        }
     }
-    
+   
+    func saveItem(item:ListItem){
+        
+        let obj:BmobObject = BmobObject(className: "ListItem")
+        obj.setObject(item.amount, forKey: "amount")
+        obj.setObject(item.type, forKey: "type")
+        obj.setObject(item.date, forKey: "date")
+        obj.saveInBackgroundWithResultBlock { (isSuccess:Bool, err:NSError!) -> Void in
+            if isSuccess {
+                print("succeeded")
+            }
+            else{
+                print("failed")
+                print(err.localizedDescription)
+            }
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
